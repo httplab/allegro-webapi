@@ -1,5 +1,5 @@
-module  Allegro
-  module  WebApi
+module Allegro
+  module WebApi
     class Auction
       attr_reader :client
 

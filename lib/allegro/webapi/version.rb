@@ -1,5 +1,5 @@
 module Allegro
-  module Webapi
+  module WebApi
     VERSION = "0.0.1"
   end
 end
