@@ -42,7 +42,8 @@ module Allegro
 
       def call(operation_name, message = {})
         # TODO: Непонятно, в некоторых случаях требуется country_code, в некоторых country_id
-        message.merge!({ country_id: country_code, local_version: local_version, webapi_key: webapi_key})
+        # message.merge!({ country_id: country_code, local_version: local_version, webapi_key: webapi_key})
+        message.merge!({ local_version: local_version, webapi_key: webapi_key})
         client.call(operation_name, message: message)
       end
 

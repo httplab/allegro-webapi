@@ -3,15 +3,14 @@ module Allegro
     class Auction
       attr_reader :client
 
-      def initialize(client)
-        @client = client
+      def initialize(client = nil)
+        @client = client || Allegro::WebApi.client
       end
 
       #fields for form
       #Helpful for building forms
       def do_get_sell_form_fields
-        message = {country_code: client.country_code, local_version: client.local_version, webapi_key: client.webapi_key}
-        client.call(:do_get_sell_form_fields, message: message )
+        client.call(:do_get_sell_form_fields_ext, { country_code: client.country_code })
       end
 
       #def do_check_new_auction_ext(*fields)
