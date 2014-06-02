@@ -6,6 +6,8 @@ module Allegro
       attr_accessor :user_login, :webapi_key, :country_code
       attr_reader :client, :password, :session_handle, :local_version
 
+      delegate :call, to: :client
+
       def initialize
         yield self
       end
@@ -38,13 +40,6 @@ module Allegro
 
         set_session_handle(response)
         self
-      end
-
-      def call(operation_name, message = {})
-        # TODO: Непонятно, в некоторых случаях требуется country_code, в некоторых country_id
-        # message.merge!({ country_id: country_code, local_version: local_version, webapi_key: webapi_key})
-        message.merge!({ local_version: local_version, webapi_key: webapi_key})
-        client.call(operation_name, message: message)
       end
 
       private

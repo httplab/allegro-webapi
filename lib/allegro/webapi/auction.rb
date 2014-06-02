@@ -7,20 +7,31 @@ module Allegro
         @client = client || Allegro::WebApi.client
       end
 
-      #fields for form
-      #Helpful for building forms
       def do_get_sell_form_fields
-        client.call(:do_get_sell_form_fields_ext, { country_code: client.country_code })
+        msg = {
+          country_code: client.country_code,
+          local_version: client.local_version,
+          webapi_key: client.webapi_key
+        }
+
+        r = client.call(:do_get_sell_form_fields_ext, message: msg)
+        r.body[:do_get_sell_form_fields_ext_response]
       end
 
-      #def do_check_new_auction_ext(*fields)
-      #
-      #end
-      #
-      #def do_new_auction_ext
-      #
-      #
-      #end
+
+      def do_check_new_auction_ext(*fields)
+        field = {
+          fid: 1,
+          fvalue_string: 'Новый лот'
+        }
+
+        msg = {
+          session_handle: client.session_handle,
+          fields: [ { item: field } ]
+        }
+
+        client.call(:do_check_new_auction_ext, message: msg)
+      end
     end
   end
 end

@@ -8,7 +8,13 @@ module Allegro
       end
 
       def do_get_cats_data
-        client.call(:do_get_cats_data, { country_id: client.country_code }).body[:do_get_cats_data_response]
+        mgs = {
+          country_id: client.country_code,
+          local_version: client.local_version,
+          webapi_key: client.webapi_key
+        }
+
+        client.call(:do_get_cats_data, message: mgs).body[:do_get_cats_data_response]
       end
     end
   end
