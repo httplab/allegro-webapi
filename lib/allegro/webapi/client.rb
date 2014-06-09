@@ -55,7 +55,7 @@ module Allegro
           log true
           log_level :debug
           pretty_print_xml true
-          strip_namespaces true
+          # strip_namespaces true
         end
       end
     end

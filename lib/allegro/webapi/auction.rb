@@ -20,18 +20,27 @@ module Allegro
 
 
       def do_check_new_auction_ext(*fields)
-        field = {
-          fid: 1,
-          fvalue_string: 'Новый лот'
-        }
+        # field = {
+        #   fid: 1,
+        #   fvalue_string: 'Новый лот'
+        # }
 
         msg = {
           session_handle: client.session_handle,
-          fields: [ { item: field } ]
+          fields: fields
         }
 
         client.call(:do_check_new_auction_ext, message: msg)
       end
+
+    def do_new_auction_ext(*fields)
+      msg = {
+        session_handle: client.session_handle,
+        fields: fields
+      }
+
+      client.call(:do_new_auction_ext, message: msg)
+    end
     end
   end
 end
