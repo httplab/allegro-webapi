@@ -20,3 +20,4 @@ config/*
 config/loca_env.yml
 *.sublime-project
 *.sublime-workspace
+*.swp

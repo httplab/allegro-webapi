@@ -33,14 +33,56 @@ module Allegro
         client.call(:do_check_new_auction_ext, message: msg)
       end
 
-    def do_new_auction_ext(*fields)
-      msg = {
-        session_handle: client.session_handle,
-        fields: fields
-      }
+      def do_get_my_sell_items(page_number: 0)
+        do_get_my_items(:sell, page_number: page_number)
+      end
 
-      client.call(:do_new_auction_ext, message: msg)
-    end
+      def do_get_my_future_items(page_number: 0)
+        do_get_my_items(:future, page_number: page_number)
+      end
+
+      def do_get_my_sold_items(page_number: 0)
+        do_get_my_items(:sold, page_number: page_number)
+      end
+
+      def do_get_my_not_sold_items(page_number: 0)
+        do_get_my_items(:not_sold, page_number: page_number)
+      end
+
+      def do_get_items_info(items_id_array)
+        msg = {
+          session_handle: client.session_handle,
+          items_id_array: { item: items_id_array }
+        }
+
+        allegro_get(:do_get_items_info, msg)
+      end
+
+      def do_new_auction_ext(*fields)
+        msg = {
+          session_handle: client.session_handle,
+          fields: fields
+        }
+
+        client.call(:do_new_auction_ext, message: msg)
+      end
+
+      private
+
+      def do_get_my_items(items_type, page_number: 0)
+        msg = {
+          session_id: client.session_handle,
+          page_number: page_number
+        }
+
+        method_name = "do_get_my_#{items_type}_items".to_sym
+        allegro_get(method_name, msg)
+      end
+
+      def allegro_get(method_name, msg)
+        r = client.call(method_name.to_sym, message: msg)
+        r.body["#{method_name}_response".to_sym]
+      end
     end
   end
 end
