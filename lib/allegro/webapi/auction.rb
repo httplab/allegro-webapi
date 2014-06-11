@@ -58,6 +58,25 @@ module Allegro
         allegro_get(:do_get_items_info, msg)
       end
 
+      def do_get_transactions_ids(items_id_array, user_role: :seller)
+        msg = {
+          session_handle: client.session_handle,
+          items_id_array: { item: items_id_array },
+          user_role: user_role
+        }
+
+        allegro_get(:do_get_transactions_i_ds, msg)
+      end
+
+      def do_get_post_buy_forms_data_for_sellers(id_array)
+        msg = {
+          session_id: client.session_handle,
+          transactions_ids_array: { item: id_array }
+        }
+
+        allegro_get(:do_get_post_buy_forms_data_for_sellers, msg)
+      end
+
       def do_new_auction_ext(*fields)
         msg = {
           session_handle: client.session_handle,
