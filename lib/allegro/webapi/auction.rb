@@ -86,6 +86,15 @@ module Allegro
         client.call(:do_new_auction_ext, message: msg)
       end
 
+      def do_finish_items(id_array)
+        msg = {
+          session_handle: client.session_handle,
+          finish_items_list: { item: id_array.map { |id| { finish_item_id: id } } }
+        }
+
+        allegro_get(:do_finish_items, msg)
+      end
+
       private
 
       def do_get_my_items(items_type, page_number: 0)
