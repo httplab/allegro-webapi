@@ -95,6 +95,15 @@ module Allegro
         allegro_get(:do_finish_items, msg)
       end
 
+      def do_get_my_bid_items(id_array)
+        msg = {
+          session_id: client.session_handle,
+          item_ids: { item: id_array }
+        }
+
+        allegro_get(:do_get_my_bid_items, msg)
+      end
+
       private
 
       def do_get_my_items(items_type, page_number: 0)
