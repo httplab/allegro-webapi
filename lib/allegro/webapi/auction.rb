@@ -123,12 +123,11 @@ module Allegro
         allegro_get(:do_add_desc_to_items, msg)
       end
 
-      def do_change_item_fields(item_id, *fields)
-        msg = {
+      def do_change_item_fields(item_id, options)
+        msg = options.reverse_merge({
           session_id: client.session_handle,
-          item_id: item_id,
-          fields_to_modify: fields
-        }
+          item_id: item_id
+        })
 
         allegro_get(:do_change_item_fields, msg)
       end
