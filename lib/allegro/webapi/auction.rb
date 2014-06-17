@@ -104,6 +104,35 @@ module Allegro
         allegro_get(:do_get_my_bid_items, msg)
       end
 
+      def do_change_price_item(item_id, options)
+        msg = options.reverse_merge({
+          session_handle: client.session_handle,
+          item_id: item_id
+        })
+
+        allegro_get(:do_change_price_item, msg)
+      end
+
+      def do_add_desc_to_items(id_array, description)
+        msg = {
+          session_handle: client.session_handle,
+          items_id_array: { item: id_array },
+          it_description: description
+        }
+
+        allegro_get(:do_add_desc_to_items, msg)
+      end
+
+      def do_change_item_fields(item_id, *fields)
+        msg = {
+          session_id: client.session_handle,
+          item_id: item_id,
+          fields_to_modify: fields
+        }
+
+        allegro_get(:do_change_item_fields, msg)
+      end
+
       private
 
       def do_get_my_items(items_type, page_number: 0)
