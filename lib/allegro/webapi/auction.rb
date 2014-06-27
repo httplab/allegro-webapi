@@ -132,6 +132,27 @@ module Allegro
         allegro_get(:do_change_item_fields, msg)
       end
 
+      def do_sell_some_again(id_array, options)
+        msg = options.reverse_merge({
+          session_handle: client.session_handle,
+          sell_items_array: { item: id_array }
+        })
+
+        start_time = msg[:sell_starting_time]
+        msg[:sell_starting_time] = start_time.to_i if start_time
+
+        allegro_get(:do_sell_some_again, msg)
+      end
+
+      def do_verify_item(local_id)
+        msg = {
+          session_handle: client.session_handle,
+          local_id: local_id
+        }
+
+        allegro_get(:do_verify_item, msg)
+      end
+
       private
 
       def do_get_my_items(items_type, page_number: 0)
