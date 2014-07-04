@@ -33,20 +33,20 @@ module Allegro
         client.call(:do_check_new_auction_ext, message: msg)
       end
 
-      def do_get_my_sell_items(page_number: 0)
-        do_get_my_items(:sell, page_number: page_number)
+      def do_get_my_sell_items(id_array, page_number: 0)
+        do_get_my_items(:sell, id_array, page_number: page_number)
       end
 
-      def do_get_my_future_items(page_number: 0)
-        do_get_my_items(:future, page_number: page_number)
+      def do_get_my_future_items(id_array, page_number: 0)
+        do_get_my_items(:future, id_array, page_number: page_number)
       end
 
-      def do_get_my_sold_items(page_number: 0)
-        do_get_my_items(:sold, page_number: page_number)
+      def do_get_my_sold_items(id_array, page_number: 0)
+        do_get_my_items(:sold, id_array, page_number: page_number)
       end
 
-      def do_get_my_not_sold_items(page_number: 0)
-        do_get_my_items(:not_sold, page_number: page_number)
+      def do_get_my_not_sold_items(id_array, page_number: 0)
+        do_get_my_items(:not_sold, id_array, page_number: page_number)
       end
 
       def do_get_items_info(items_id_array)
@@ -155,9 +155,10 @@ module Allegro
 
       private
 
-      def do_get_my_items(items_type, page_number: 0)
+      def do_get_my_items(items_type, id_array, page_number: 0)
         msg = {
           session_id: client.session_handle,
+          item_ids: { item: id_array },
           page_number: page_number
         }
 
